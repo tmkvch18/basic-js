@@ -1,4 +1,4 @@
-const { NotImplementedError } = require('../lib');
+const { NotImplementedError } = require("../lib");
 
 /**
  * Given an array with heights, sort them except if the value is -1.
@@ -11,11 +11,38 @@ const { NotImplementedError } = require('../lib');
  *
  * The result should be [-1, 150, 160, 170, -1, -1, 180, 190]
  */
-function sortByHeight(/* arr */) {
-  // Remove line below and write your code here
-  throw new NotImplementedError('Not implemented');
+function sortByHeight(arr) {
+  const newArr = arr.filter((item) => item !== -1);
+
+  for (let i = newArr.length - 1; i > 0; i--) {
+    for (let j = 0; j < i; j++) {
+      if (newArr[j + 1] < newArr[j]) {
+        const save = newArr[j];
+
+        newArr[j] = newArr[j + 1];
+
+        newArr[j + 1] = save;
+      }
+    }
+  }
+
+  const res = [];
+
+  let idx = 0;
+
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] === -1) {
+      res.push(arr[i]);
+    } else {
+      res.push(newArr[idx]);
+
+      idx++;
+    }
+  }
+
+  return res;
 }
 
 module.exports = {
-  sortByHeight
+  sortByHeight,
 };
